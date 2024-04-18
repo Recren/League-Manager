@@ -1,0 +1,25 @@
+{
+  "name": "league-manager",
+  "version": "1.0.0",
+  "description": "A management system for recreational basketball tournaments",
+  "type": "module",
+  "main": "database.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recren/League-Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Recren/League-Manager/issues"
+  },
+  "homepage": "https://github.com/Recren/League-Manager#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mysql2": "^2.3.3"
+  }
+}
