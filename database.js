@@ -11,22 +11,26 @@ const pool = mysql.createPool({
 }).promise()
 
 // Basic query to get all the teams
-// async function getAllTeamsQuery() {
-//     //Note: await is waiting for the pool to fulfill its query promise
-//     const [result] = await pool.query("SELECT * FROM Team");
-//     console.log(result)
+export async function getAllTeamsQuery() {
+    //Note: await is waiting for the pool to fulfill its query promise
+    const [result] = await pool.query("SELECT * FROM Team");
+    return result
+}
 
-// }
+//Basic query to get all the teams
+export async function getSingleTeam(teamName) {
+    //Note: await is waiting for the pool to fulfill its query promise
+    const [result] = await pool.query(`SELECT * FROM Team
+                                       WHERE Team_name = ?`, [teamName]); //Using a prepared value
+    return result
+}
 
-// // Call the async function to start query
-// getAllTeamsQuery();
+//Insert Query
+export async function createNewTeam(teamname, wins, loss, ties, coach, stadium, city, conference){
+    const result = await pool.query(`INSERT INTO Team (Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
+                      VALUES (?,?,?,?,?,?,?,?)`, [teamname, wins, loss, ties, coach, stadium, city, conference])
 
-// Basic query to get all the teams
-// async function getSingleTeam(teamName) {
-//     //Note: await is waiting for the pool to fulfill its query promise
-//     const [result] = await pool.query(`SELECT * FROM Team
-//                                        WHERE Team_name = ?`, [teamName]); //Using a prepared value
-//     console.log(result)
+}
 
-// }
-// getSingleTeam("Comets");
+//createNewTeam("testTeam", 0, 0, 0, "coach", "stadium", "city", "conference")
+
