@@ -17,7 +17,7 @@ export async function getAllTeamsQuery() {
     return result
 }
 
-//Basic query to get all the teams
+//Basic query to get a single team
 export async function getSingleTeam(teamName) {
     //Note: await is waiting for the pool to fulfill its query promise
     const [result] = await pool.query(`SELECT * FROM Team
@@ -26,10 +26,10 @@ export async function getSingleTeam(teamName) {
 }
 
 //Insert Query
-export async function createNewTeam(teamname, wins, loss, ties, coach, stadium, city, conference){
-    const result = await pool.query(`INSERT INTO Team (Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
-                      VALUES (?,?,?,?,?,?,?,?)`, [teamname, wins, loss, ties, coach, stadium, city, conference])
-
+export async function createNewTeam(Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference){
+    const [result] = await pool.query(`INSERT INTO Team (Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
+                      VALUES (?,?,?,?,?,?,?,?)`, [Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference])
+    return result
 }
 
 //createNewTeam("testTeam", 0, 0, 0, "coach", "stadium", "city", "conference")
