@@ -1,10 +1,20 @@
 import express from "express";
+import bodyParser from "body-parser"
 
 //Get our query functions from our database
 import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer} from './database.js'
 
 const app = express()
 app.use(express.json())
+//ALlows express to parse through HTML Forms
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+//Static pages will only be hosted in public directory
+app.use(express.static('public'))
+
+
 
 //------------------------------------GET REQUESTS-----------------------------------------------------------------------------------
 //When we get to this page, we send the page the results of the query we call
@@ -59,7 +69,7 @@ app.post("/teams", async (req,res) =>{
     const {Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference} = req.body
     const team = await createNewTeam(Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
 
-    res.status(201).send(team)
+    res.status(201).send("Team Added")
 })
 
 
@@ -73,15 +83,11 @@ app.post("/players", async (req, res) => {
     }
 });
 
-
-
-
-
 app.use((err, req, res, next) =>{
     console.error(err.stack)
     res.status(500).send("Something broke!")
 })
 
 app.listen(8080, () =>{
-    console.log("Server is running on port 8080")
+    console.log("Server is running on http://localhost:8080/pages/homepage.html")
 })

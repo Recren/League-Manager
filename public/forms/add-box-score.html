@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/form-styles.css">
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <a href="../pages/homepage.html"><button class="navButton">Home</button></a>
+            <a href="../pages/team-page.html"><button class="navButton">Teams</button></a>
+            <a href="../pages/player-page.html"><button class="navButton">Players</button></a>
+            <a href="../pages/matches-page.html"><button class="navButton">Matches</button></a>
+        </div>
+        <div class="form-container">
+
+            <div class="form-body">
+                <h1 style="font-size: 50px; margin: 0; margin-top: 30px;">Add Box Score</h1>
+                <!--Will have to go back and at the right action to this to make sure it post data to database-->
+                <form class="form-elements-container" action="team-page.html" method="POST">
+                    <div class="form-element">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date">
+                    </div>
+
+                    <div class="form-element">
+                        <label for="host_team">Host Team:</label>
+                        <input type="text" id="host_team" name="host_team">
+                    </div>
+
+                    <div class="form-element">
+                        <label for="guest_team">Guest Team:</label>
+                        <input type="text" id="guest_team" name="guest_team">
+                    </div>
+
+                    <div class="form-element">
+                        <label for="p_fname">Player First Name:</label>
+                        <input type="text" id="p_fname" name="p_fname">
+                    </div>
+
+                    <div class="form-element">
+                        <label for="p_lname">Player Last Name:</label>
+                        <input type="text" id="p_lname" name="p_lname">
+                    </div>
+
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="rebounds">Rebounds:</label>
+                            <input type="number" id="rebounds" name="rebounds">
+                        </div>
+
+                        <div class="form-element">
+                            <label for="assists">Assists:</label>
+                            <input type="number" id="assists" name="assists">
+                        </div>
+
+                        <div class="form-element">
+                            <label for="steals">Steals:</label>
+                            <input type="number" id="steals" name="steals">
+                        </div>
+                    </div>
+
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="ft_made">FT Made:</label>
+                            <input type="number" id="ft_made" name="ft_made">
+                        </div>
+
+                        <div class="form-element">
+                            <label for="ft_attempted">FT Attempted:</label>
+                            <input type="number" id="ft_attempted" name="ft_attempted">
+                        </div>
+                    </div>
+
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="fg_made">FG Made:</label>
+                            <input type="number" id="fg_made" name="fg_made">
+                        </div>
+
+
+                        <div class="form-element">
+                            <label for="fg_attempted">FG Attempted:</label>
+                            <input type="number" id="fg_attempted" name="fg_attempted">
+                        </div>
+                    </div>
+
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="tp_made">Three Pointers Made:</label>
+                            <input type="number" id="tp_made" name="tp_made">
+                        </div>
+
+
+                        <div class="form-element">
+                            <label for="tp_attempted">Three Pointers Attempted:</label>
+                            <input type="number" id="tp_attempted" name="tp_attempted">
+                        </div>
+                    </div>
+
+                    <button class="submit-button" type="submit">Add Game</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

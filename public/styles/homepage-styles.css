@@ -1,0 +1,119 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.navbar{
+    display: flex;
+    justify-content: center;
+    gap:30px;
+    align-items: center;
+    width: 100vw;
+    height: 70px;
+    background-color: #1D428A;
+
+}
+.navButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    color: white;
+    background-color: #1D428A;
+    border: none;
+    transition: .2s;
+}
+.navButton:hover{
+    transform: scale(1.2);
+}
+
+.title{
+    margin: 20px;
+    padding: 0;
+    font-size: 50px;
+    text-align: center;
+    color: #1D428A;
+}
+
+.DB-query-container{
+    height: 70vh;
+    width: 80vw;
+    border: solid;
+    display: flex;
+    justify-content: center;
+    gap:100px;
+    align-items: center;
+}
+.upcoming-games-container{
+    height: 50vh;
+    width: 30vw;
+    min-width: 350px;
+    max-width: 500px;
+    background-color:  #C8102E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:20px;
+    overflow: scroll
+}
+.games-title, .card{
+    display: flex;
+    background-color: white;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    min-height: 60px;
+    width: 95%;
+    font-size: 22px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    transition: .2s;
+}
+.games-title{
+    font-size: 40px;
+}
+.card{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.card:hover{
+    transform: scale(1.02);
+}
+p{
+    margin: 0;
+}
+.mini-text{
+    font-size: 15px;
+}
+
+.team-player-records-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3vh
+}
+
+.team-standings-container, .player-standings-container{
+
+    height: 30vh;
+    width: 30vw;
+    border: solid;
+    overflow: scroll;
+    background-color:#C8102E ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:10px
+}
