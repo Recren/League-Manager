@@ -1,7 +1,7 @@
 import express from "express";
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -19,6 +19,40 @@ app.get("/teams/:name", async (req, res)=>{
     res.send(team)
 })
 
+// GET endpoint to get a player by Player_id
+app.get("/players/:id", async (req, res) => {
+    const playerId = req.params.id;
+    const player = await getSinglePlayerById(playerId);
+    res.send(player);
+});
+
+// GET endpoint to get a player by Fname and Lname
+app.get("/players/:fname/:lname", async (req, res) => {
+    const fname = req.params.fname;
+    const lname = req.params.lname;
+    const player = await getSinglePlayerByName(fname, lname);
+    res.send(player);
+});
+
+
+//------------------------------------Delete REQUESTS-----------------------------------------------------------------------------------
+
+app.delete("/players/:id", async (req, res) => {
+    const playerId = req.params.id;
+    try {
+        const playerDeleted = await deletePlayer(playerId);
+        if (playerDeleted) {
+            res.status(200).send({ message: "Player deleted successfully" });
+        } else {
+            res.status(404).send({ message: "Player not found" });
+        }
+    } catch (error) {
+        res.status(500).send({ message: "Failed to delete player", error: error.message });
+    }
+});
+
+
+
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------------------
 //Post request to create a team and insert it into the Team Table
 app.post("/teams", async (req,res) =>{
@@ -28,6 +62,16 @@ app.post("/teams", async (req,res) =>{
     res.status(201).send(team)
 })
 
+
+app.post("/players", async (req, res) => {
+    const playerData = req.body; // Assuming the request body contains the player data
+    try {
+        const playerId = await createPlayer(playerData);
+        res.status(201).send({ id: playerId, message: "Player created successfully" });
+    } catch (error) {
+        res.status(500).send({ message: "Failed to create player", error: error.message });
+    }
+});
 
 
 
