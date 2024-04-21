@@ -56,7 +56,7 @@ export async function getSinglePlayerByName(fname, lname) {
 
 // Export async function to create a single player
 export async function createPlayer(playerData) {
-    const { Player_id, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active } = playerData;
+    const { Player_id = 0, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active = true } = playerData;
     const query = `INSERT INTO Player (Player_id, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active) VALUES (?, ?, ?, ?, ?, ?, ?)`;
     const result = await pool.query(query, [Player_id, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active]);
     return result.insertId; // Return the ID of the newly created player
@@ -111,7 +111,7 @@ export async function determineGameWinner(Date, Host_id, Guest_Id) {
     }
 }
 
-const data = await getTeamNames();
-console.log(data);
+//const data = await getTeamNames();
+//console.log(data);
 //createNewTeam("testTeam", 0, 0, 0, "coach", "stadium", "city", "conference")
 

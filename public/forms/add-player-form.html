@@ -22,35 +22,36 @@
             <div class="form-body">
                 <h1 style="font-size: 50px; margin: 0; margin-top: 30px;">Add Player</h1>
                 <!--Will have to go back and at the right action to this to make sure it post data to database-->
-                <form class="form-elements-container" action="team-page.html" method="POST"  id="player-form">
+                <form class="form-elements-container" action="http://localhost:8080/players" method="POST"
+                    id="player-form">
                     <div class="form-element">
-                        <label for="fname">First Name:</label>
-                        <input type="text" id="fname" name="fname">
+                        <label for="Fname">First Name:</label>
+                        <input type="text" id="Fname" name="Fname">
                     </div>
 
                     <div class="form-element">
-                        <label for="lname">Last Name:</label>
-                        <input type="text" id="lname" name="lname">
+                        <label for="Lname">Last Name:</label>
+                        <input type="text" id="Lname" name="Lname">
                     </div>
 
                     <div class="form-element">
-                        <label for="experience">Years in the league:</label>
-                        <input type="number" id="experience" name="experience">
+                        <label for="year_in_league">Years in the league:</label>
+                        <input type="number" id="year_in_league" name="year_in_league">
                     </div>
 
                     <div class="form-element">
-                        <label for="jesery_num">Jersey Number:</label>
-                        <input type="number" id="jesery_num" name="jesery_num">
+                        <label for="Jersey_num">Jersey Number:</label>
+                        <input type="number" id="Jersey_num" name="Jersey_num">
                     </div>
                     <div class="form-element">
-                        <label for="team">Current Team:</label>
-                        <select class="teamSelection" id="team" name="team">
-                        <option value="Team Name"></option>
+                        <label for="Team_id">Current Team:</label>
+                        <select style="width: 250px; height: 40px;" class="teamSelection" id="Team_id" name="Team_id">
+                            <option value="Team Name"></option>
 
                         </select>
                     </div>
 
-                    <button class="submit-button" type="submit" onsubmit="">Add Team</button>
+                    <button class="submit-button" type="submit" onsubmit="">Add Player</button>
                 </form>
             </div>
         </div>

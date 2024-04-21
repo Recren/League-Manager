@@ -1,7 +1,7 @@
 //import { getTeamNames } from '../../database.js';
 
 document.addEventListener("DOMContentLoaded", async function() {
-    var dropdown = document.getElementById("team");
+    var dropdown = document.getElementById("Team_id");
 
     try {
         // Call the getTeamNames function to fetch team names
