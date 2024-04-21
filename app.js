@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -20,6 +20,11 @@ app.use(express.static('public'))
 //When we get to this page, we send the page the results of the query we call
 app.get("/teams", async (req, res)=>{
     const teams = await getAllTeamsQuery()
+    res.send(teams)
+})
+// To get Team names
+app.get("/teams/names", async (req, res)=>{
+    const teams = await getTeamNames()
     res.send(teams)
 })
 //Get the database info of a certain team

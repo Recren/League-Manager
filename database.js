@@ -17,6 +17,14 @@ export async function getAllTeamsQuery() {
     return result
 }
 
+// Query to get Team names
+
+export async function getTeamNames() {
+    //Note: await is waiting for the pool to fulfill its query promise
+    const [result] = await pool.query("SELECT Team_Name FROM Team");
+    return result
+}
+
 //Basic query to get a single team
 export async function getSingleTeam(teamName) {
     //Note: await is waiting for the pool to fulfill its query promise
@@ -103,6 +111,7 @@ export async function determineGameWinner(Date, Host_id, Guest_Id) {
     }
 }
 
-
+const data = await getTeamNames();
+console.log(data);
 //createNewTeam("testTeam", 0, 0, 0, "coach", "stadium", "city", "conference")
 
