@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -32,6 +32,12 @@ app.get("/teams/:name", async (req, res)=>{
     const name = req.params.name
     const team = await getSingleTeam(name)
     res.send(team)
+})
+
+//Get endpoint to get all the players
+app.get("/players", async (req,res) =>{
+    const players = await getAllPlayers()
+    res.send(players)
 })
 
 // GET endpoint to get a player by Player_id

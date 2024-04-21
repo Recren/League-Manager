@@ -10,6 +10,8 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DB
 }).promise()
 
+
+//--------------------------------------------------GET FUNCTIONS-----------------------------------------
 // Basic query to get all the teams
 export async function getAllTeamsQuery() {
     //Note: await is waiting for the pool to fulfill its query promise
@@ -33,11 +35,10 @@ export async function getSingleTeam(teamName) {
     return result
 }
 
-//Insert Query
-export async function createNewTeam(Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference){
-    const [result] = await pool.query(`INSERT INTO Team (Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
-                      VALUES (?,?,?,?,?,?,?,?)`, [Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference])
-    return result
+// Export async function to get all the players
+export async function getAllPlayers() {
+    const [result] = await pool.query(`SELECT * FROM Player`);
+    return result;
 }
 
 // Export async function to get player by Player_id
@@ -54,20 +55,23 @@ export async function getSinglePlayerByName(fname, lname) {
     return result;
 }
 
+//--------------------------------------------------CREATE FUNCTIONS-----------------------------------------
+
+//Insert Query
+export async function createNewTeam(Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference){
+    const [result] = await pool.query(`INSERT INTO Team (Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
+                      VALUES (?,?,?,?,?,?,?,?)`, [Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference])
+    return result
+}
+
+
+
 // Export async function to create a single player
 export async function createPlayer(playerData) {
     const { Player_id = 0, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active = true } = playerData;
     const query = `INSERT INTO Player (Player_id, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active) VALUES (?, ?, ?, ?, ?, ?, ?)`;
     const result = await pool.query(query, [Player_id, Team_id, Fname, Lname, year_in_league, Jersey_num, is_active]);
     return result.insertId; // Return the ID of the newly created player
-}
-
-
-// Export async function to delete a single player
-export async function deletePlayer(playerId) {
-    const query = `DELETE FROM Player WHERE Player_id = ?`;
-    const result = await pool.query(query, [playerId]);
-    return result.affectedRows > 0; // Return true if a player was deleted, false otherwise
 }
 
 
@@ -83,6 +87,17 @@ export async function createNewGame(Date, Host_id, Guest_Id, Host_Score, Guest_S
         throw error;
     }
 }
+
+//--------------------------------------------------DELETE FUNCTIONS-----------------------------------------
+
+// Export async function to delete a single player
+export async function deletePlayer(playerId) {
+    const query = `DELETE FROM Player WHERE Player_id = ?`;
+    const result = await pool.query(query, [playerId]);
+    return result.affectedRows > 0; // Return true if a player was deleted, false otherwise
+}
+
+
 
 
 //Determine Winner function

@@ -1,14 +1,13 @@
 window.addEventListener('DOMContentLoaded', async function(){
     //These run when the team pages is open
     if (window.location.href == "http://localhost:8080/pages/team-page.html"){
-    console.log("hi")
+    
         //This takes each team object, creates an html card for it and then displays it on the team page
         const teamPageContainer = document.querySelector(".teams-page-container")
         try {
-            // Call the getTeamNames function to fetch all the team records
+            // Call the getAllTeams function to fetch all the team records
             const teams = await fetch("/teams").then((res)=> res.json());
 
-            // Populate dropdown with team names
             teams.forEach(function(team) {
             //container for the teams
             let teamInfoCard = document.createElement("div");
@@ -53,8 +52,65 @@ window.addEventListener('DOMContentLoaded', async function(){
 
             });
         } catch (error) {
-            console.error('Failed to fetch team names:', error);
+            console.error('Failed to fetch teams:', error);
         }
 
     }
+
+       //Displays all the players in the database
+       if (window.location.href == "http://localhost:8080/pages/player-page.html"){
+
+            const playerPageContainer = document.querySelector(".players-page-container")
+            try {
+                // Call the getAllPlayers function to fetch all the player records
+                const players = await fetch("/players").then((res)=> res.json());
+    
+                // Populate page with all the players
+                players.forEach(function(player) {
+
+                //container for the players
+                let playerInfoCard = document.createElement("div");
+                playerInfoCard.className = "player-info-card"
+    
+                //heading for the players name
+                let playerName = document.createElement("h3")
+                playerName.style.cssText="font-size: 30px; margin: 0; margin-top: 20px"
+                playerName.textContent = player.Fname + " " + player.Lname
+                
+                //Team Name
+                let teamName = document.createElement("p")
+                teamName.style.margin = "10px";
+                teamName.textContent = "Team: " + player.Team_id
+    
+                                
+                //Jersey number
+                let jersey = document.createElement("p")
+                jersey.style.margin =  "10px";
+                jersey.textContent = "Jersey number: " + player.Jersey_num
+
+                //exp.
+                let experience = document.createElement("p")
+                experience.style.margin =  "10px";
+                if(player.year_in_league == 0){
+                    experience.textContent = "Experience: Rookie"
+                }
+                else{
+                    experience.textContent = "Experience: " + player.year_in_league
+                }
+                
+
+
+    
+                playerInfoCard.appendChild(playerName)
+                playerInfoCard.appendChild(teamName)
+                playerInfoCard.appendChild(jersey)
+                playerInfoCard.appendChild(experience)
+                playerPageContainer.appendChild(playerInfoCard)
+    
+                });
+            } catch (error) {
+                console.error('Failed to fetch players:', error);
+            }
+    
+        }
 }) 
