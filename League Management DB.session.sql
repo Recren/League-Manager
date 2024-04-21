@@ -1,2 +1,2 @@
 Select *
-from Player
+from Team
