@@ -94,6 +94,13 @@ app.post("/players", async (req, res) => {
     }
 });
 
+//------------------------------------SENDING DATA TO ANOTHER PAGE REQUESTS-----------------------------------------------------------------------------------
+app.post('/sendTeamData', (req, res) =>{
+    const teamData = req.body
+    res.redirect(`/pages/team-info.html?data=${teamData}`)
+})
+
+
 app.use((err, req, res, next) =>{
     console.error(err.stack)
     res.status(500).send("Something broke!")

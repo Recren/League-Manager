@@ -35,6 +35,7 @@ a{
 }
 .navButton:hover{
     transform: scale(1.2);
+    
 }
 .add-player-button{
     display: flex;
