@@ -55,6 +55,13 @@ export async function getSinglePlayerByName(fname, lname) {
     return result;
 }
 
+//Return all the players in a certain team
+export async function getAllPlayersInTeam(Team_id){
+    const [result] = await pool.query(`SELECT * FROM Player
+                                       WHERE Team_id = ?`, [Team_id]);
+
+    return result;
+}
 //--------------------------------------------------CREATE FUNCTIONS-----------------------------------------
 
 //Insert Query

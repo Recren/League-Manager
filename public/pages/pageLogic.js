@@ -72,10 +72,122 @@ window.addEventListener('DOMContentLoaded', async function(){
         try{
             //If we are here, we fetch which team we are working with
             let teamToDisplay = localStorage.getItem('team')
+
             //Run the query that fetches the data for a single team
             const [team] = await fetch(`/teams/${teamToDisplay}`).then((res)=> res.json());
-            console.log(team["Team_Name"])
+            let teamInfoHeader = this.document.querySelector(".team-info-header")
+            //Coach name
+            let coachName = document.createElement("p")
+            coachName.style.fontSize = "20px"
+            coachName.style.margin = "10px";
+            coachName.textContent = "Head Coach: " + team.Coach
+            
+            //Stadium
+            let stadiumName = document.createElement("p")
+            stadiumName.style.fontSize = "20px"
+            stadiumName.style.margin =  "10px";
+            stadiumName.textContent = "Stadium: " + team.Stadium
+                        
+            //City
+            let city = document.createElement("p")
+            city.style.fontSize = "20px"
+            city.style.margin =  "10px";
+            city.textContent = "City: " + team.City
+            
+            //Record
+            let record = document.createElement("p")
+            record.style.fontSize = "20px"
+            record.style.margin =  "10px";
+            if(team.Ties == 0){
+                record.textContent = "Record: " + team.Wins + " - " + team.Losses
+            }
+            else{
+                record.textContent = "Record: " + team.Wins + " - " + team.Losses + " - " +  team.Ties
+            }
+            
+            teamInfoHeader.appendChild(coachName)
+            teamInfoHeader.appendChild(stadiumName)
+            teamInfoHeader.appendChild(city)
+            teamInfoHeader.appendChild(record)
 
+            try{
+                //Fetch all the players that belong to that team
+                const players = await fetch(`/players/${teamToDisplay}`).then((res)=> res.json())
+                const container = document.querySelector(".container")
+
+                console.log(players)
+                //Display all the players on the team
+                players.forEach(function(player) {
+
+                    let playerContainer = document.createElement("div")
+                    playerContainer.className = "players-record"
+
+                    let playerName = document.createElement("p")
+                    playerName.style.margin = "0px"
+                    playerName.style.marginTop = "20px"
+                    playerName.style.fontSize = "25px"
+                    playerName.textContent = player.Fname + " " + player.Lname
+
+                    let jersey = document.createElement("p")
+                    jersey.style.margin = "2px"
+                    jersey.style.fontSize = "25px"
+                    jersey.textContent = player.Jersey_num
+
+                    let experience = document.createElement("p")
+                    experience.style.margin = "2px"
+                    experience.style.fontSize = "18px"
+                    if(player.year_in_league == 0){
+                        experience.textContent = "Experience: Rookie"
+                    }
+                    else{
+                        experience.textContent = "Experience: " + player.year_in_league
+                    }
+
+                    //Insert a query to fetch their stats and fill in the stats here:
+                    let playerStats = document.createElement("div")
+                    playerStats.className = "player-stats"
+
+                    let pointsPerGame = document.createElement("p")
+                    pointsPerGame.style.margin = "0px"
+                    pointsPerGame.textContent = "P.P.G: " + "0"
+
+                    let assistsPerGame = document.createElement("p")
+                    assistsPerGame.style.margin = "0px"
+                    assistsPerGame.textContent = "A.P.G: " + "0"
+
+                    let reboundsPerGame = document.createElement("p")
+                    reboundsPerGame.style.margin = "0px"
+                    reboundsPerGame.textContent = "R.P.G: " + "0"
+
+                    let freeThrowPercent = document.createElement("p")
+                    freeThrowPercent.style.margin = "0px"
+                    freeThrowPercent.textContent = "F.T %: " + "0"
+
+                    let fieldGoalPercent = document.createElement("p")
+                    fieldGoalPercent.style.margin = "0px"
+                    fieldGoalPercent.textContent = "F.G %: " + "0"
+
+                    let threePointPercent = document.createElement("p")
+                    threePointPercent.style.margin = "0px"
+                    threePointPercent.textContent = "3.P %: " + "0"
+
+                    playerContainer.appendChild(playerName)
+                    playerContainer.appendChild(jersey)
+                    playerContainer.appendChild(experience)
+                    playerStats.appendChild(pointsPerGame)
+                    playerStats.appendChild(assistsPerGame)
+                    playerStats.appendChild(reboundsPerGame)
+                    playerStats.appendChild(freeThrowPercent)
+                    playerStats.appendChild(fieldGoalPercent)
+                    playerStats.appendChild(threePointPercent)
+                    playerContainer.appendChild(playerStats)
+                    container.appendChild(playerContainer)
+                });
+
+            }
+            catch (error){
+                console.error('Failed to fetch the players on that specific team', error);
+            }
         }
         catch (error){ 
             console.error('Failed to fetch info on that specific team', error);

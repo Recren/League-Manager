@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -34,18 +34,13 @@ app.get("/teams/:name", async (req, res)=>{
     res.send(team)
 })
 
+//------------------------------------GET REQUESTS FOR PLAYERS------------------------------------
 //Get endpoint to get all the players
 app.get("/players", async (req,res) =>{
     const players = await getAllPlayers()
     res.send(players)
 })
 
-// GET endpoint to get a player by Player_id
-app.get("/players/:id", async (req, res) => {
-    const playerId = req.params.id;
-    const player = await getSinglePlayerById(playerId);
-    res.send(player);
-});
 
 // GET endpoint to get a player by Fname and Lname
 app.get("/players/:fname/:lname", async (req, res) => {
@@ -54,6 +49,13 @@ app.get("/players/:fname/:lname", async (req, res) => {
     const player = await getSinglePlayerByName(fname, lname);
     res.send(player);
 });
+
+//GET endpoint to fetch all the players on a certain team
+app.get("/players/:team", async(req,res) =>{
+    const team = req.params.team
+    const players = await getAllPlayersInTeam(team);
+    res.send(players)
+})
 
 
 //------------------------------------Delete REQUESTS-----------------------------------------------------------------------------------
@@ -95,10 +97,10 @@ app.post("/players", async (req, res) => {
 });
 
 //------------------------------------SENDING DATA TO ANOTHER PAGE REQUESTS-----------------------------------------------------------------------------------
-app.post('/sendTeamData', (req, res) =>{
-    const teamData = req.body
-    res.redirect(`/pages/team-info.html?data=${teamData}`)
-})
+// app.post('/sendTeamData', (req, res) =>{
+//     const teamData = req.body
+//     res.redirect(`/pages/team-info.html?data=${teamData}`)
+// })
 
 
 app.use((err, req, res, next) =>{
