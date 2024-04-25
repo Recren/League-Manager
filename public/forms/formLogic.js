@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     if(window.location.href == "http://localhost:8080/forms/add-match-form.html"){
         const hostDropdown = document.getElementById("Host_id")
-        const guestDropdown = document.getElementById("Guest_id")
+        const guestDropdown = document.getElementById("Guest_Id")
         try{
             // Call the getTeamNames function to fetch team names
             const teams = await fetch("/teams/names").then((res)=> res.json());

@@ -62,6 +62,11 @@ export async function getAllPlayersInTeam(Team_id){
 
     return result;
 }
+
+export async function getAllGames(){
+    const [result] = await pool.query(`SELECT * From Game`)
+    return result
+}
 //--------------------------------------------------CREATE FUNCTIONS-----------------------------------------
 
 //Insert Query
@@ -84,15 +89,11 @@ export async function createPlayer(playerData) {
 
 // Insert Query to create a new game
 export async function createNewGame(Date, Host_id, Guest_Id, Host_Score, Guest_Score) {
-    try {
         const sql = `INSERT INTO Game (Date, Host_id, Guest_Id, Host_Score, Guest_Score)
                      VALUES (?, ?, ?, ?, ?)`;
-        const [result] = await pool.query(sql, [Date, Host_id, Guest_Id, Host_Score, Guest_Score]);
+        const result = await pool.query(sql, [Date, Host_id, Guest_Id, Host_Score, Guest_Score]);
         return result;
-    } catch (error) {
-        console.error('Failed to create new game:', error);
-        throw error;
-    }
+
 }
 
 //--------------------------------------------------DELETE FUNCTIONS-----------------------------------------

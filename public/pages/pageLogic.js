@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', async function(){
     //--------------------------------------------------TEAM RELATED FUNCTIONS------------------------------------------------
     //These run when the team pages is open
     if (window.location.href == "http://localhost:8080/pages/team-page.html"){
-    
+
         //This takes each team object, creates an html card for it and then displays it on the team page
         const teamPageContainer = document.querySelector(".teams-page-container")
         try {
@@ -195,31 +195,31 @@ window.addEventListener('DOMContentLoaded', async function(){
     }
 
        //Displays all the players in the database
-       if (window.location.href == "http://localhost:8080/pages/player-page.html"){
+    if (window.location.href == "http://localhost:8080/pages/player-page.html"){
 
-            const playerPageContainer = document.querySelector(".players-page-container")
-            try {
-                // Call the getAllPlayers function to fetch all the player records
-                const players = await fetch("/players").then((res)=> res.json());
+        const playerPageContainer = document.querySelector(".players-page-container")
+        try {
+            // Call the getAllPlayers function to fetch all the player records
+            const players = await fetch("/players").then((res)=> res.json());
     
-                // Populate page with all the players
-                players.forEach(function(player) {
+            // Populate page with all the players
+            players.forEach(function(player) {
 
                 //container for the players
                 let playerInfoCard = document.createElement("div");
                 playerInfoCard.className = "player-info-card"
-    
+        
                 //heading for the players name
                 let playerName = document.createElement("h3")
                 playerName.style.cssText="font-size: 30px; margin: 0; margin-top: 20px"
                 playerName.textContent = player.Fname + " " + player.Lname
-                
+                    
                 //Team Name
                 let teamName = document.createElement("p")
                 teamName.style.margin = "10px";
                 teamName.textContent = "Team: " + player.Team_id
-    
-                                
+        
+                                    
                 //Jersey number
                 let jersey = document.createElement("p")
                 jersey.style.margin =  "10px";
@@ -234,20 +234,55 @@ window.addEventListener('DOMContentLoaded', async function(){
                 else{
                     experience.textContent = "Experience: " + player.year_in_league
                 }
-                
-
-
-    
+        
                 playerInfoCard.appendChild(playerName)
                 playerInfoCard.appendChild(teamName)
                 playerInfoCard.appendChild(jersey)
                 playerInfoCard.appendChild(experience)
                 playerPageContainer.appendChild(playerInfoCard)
     
-                });
-            } catch (error) {
-                console.error('Failed to fetch players:', error);
-            }
-    
+            });
+        } catch (error) {
+            console.error('Failed to fetch players:', error);
         }
+    
+    }
+
+    //Displays all the current matches
+    if (window.location.href == "http://localhost:8080/pages/matches-page.html"){
+
+        let container = document.querySelector(".container")
+
+        try{
+            //Fetch all the records of the games and display them
+            const gameRecords = await fetch("/games").then((res)=> res.json());
+            console.log(gameRecords)
+
+            gameRecords.forEach(function(game){
+                let gameContainer = document.createElement("div")
+                gameContainer.className = "game-info-card"
+
+                let date = document.createElement("h1")
+                let tempDate = game.Date.split("T")[0]
+                tempDate = tempDate.split("-")
+                date.textContent = tempDate[1] + "/" + tempDate[2] + "/" + tempDate[0]
+
+                let teamHeadline = document.createElement("h2")
+                teamHeadline.textContent = game.Host_id + " vs " + game.Guest_Id
+
+                let score = document.createElement("h3")
+                score.textContent = game.Host_Score + " - " + game.Guest_Score
+
+
+                gameContainer.appendChild(date)
+                gameContainer.appendChild(teamHeadline)
+                gameContainer.appendChild(score)
+                container.appendChild(gameContainer)
+            })
+
+        }
+        catch (error){
+            console.error("Failed to fetch game records", error)
+        }
+    }
 }) 

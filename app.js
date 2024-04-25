@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame, getAllGames} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -56,7 +56,11 @@ app.get("/players/:team", async(req,res) =>{
     const players = await getAllPlayersInTeam(team);
     res.send(players)
 })
-
+//------------------------------------GET REQUESTS FOR GAMES------------------------------------
+app.get("/games", async(req,res) =>{
+    const games = await getAllGames()
+    res.send(games)
+})
 
 //------------------------------------Delete REQUESTS-----------------------------------------------------------------------------------
 
@@ -98,9 +102,9 @@ app.post("/players", async (req, res) => {
 
 //Post a game to the database
 app.post("/game", async (req,res) =>{
-    const {Date, Host_id, Guest_id, Host_Score, Guest_Score} = req.body
+    const {Date, Host_id, Guest_Id, Host_Score, Guest_Score} = req.body
     try{
-        const [game] = await createNewGame(Date, Host_id, Guest_id, Host_Score, Guest_Score)
+        const game = await createNewGame(Date, Host_id, Guest_Id, Host_Score, Guest_Score)
         res.status(201).send({message: "Game created successfully"})
     }
     catch (error){

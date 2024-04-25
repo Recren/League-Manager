@@ -37,7 +37,6 @@ a{
     transform: scale(1.2);
 }
 
-
 .add-match-button{
     display: flex;
     justify-content: center;
@@ -60,4 +59,16 @@ a{
     background-color: #193672;
 }
 
-    
+.game-info-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    width: 70vw;
+    height: 130px;
+    border: saddlebrown solid;
+}
+
+h1, h2, h3, p{
+    margin: 0;
+}
