@@ -67,6 +67,31 @@ input{
     height: 30px;
     font-size: 20px;
 }
+.small-input{
+    width: 90px;
+    height: 30px;
+    font-size: 15px;
+}
+.small-label{
+    margin: 0;
+    font-size: 15px;
+}
+.player-stats-container{
+    display: flex; gap:10px; margin-top: 10px;
+}
+.host-players-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.guest-players-container{
+    display: flex;
+    flex-direction: column;
+}
+.score-container{
+    display: flex;
+    flex-direction: column;
+}
 .submit-button{
     margin-top: 50px;
     width: 100px;

@@ -311,9 +311,21 @@ window.addEventListener('DOMContentLoaded', async function(){
                 score.textContent = game.Host_Score + " - " + game.Guest_Score
 
 
+                //add a box score to the match once its been created
+                let addBoxScore = document.createElement("button")
+                addBoxScore.textContent = "Add Box Score"
+                addBoxScore.style.fontSize = "16px"
+
+                addBoxScore.onclick = function(){
+                    localStorage.setItem("Host_team", game.Host_id)
+                    localStorage.setItem("Guest_team", game.Guest_Id)
+                    location.href = "../forms/add-box-score.html"
+                }
+                
                 gameContainer.appendChild(date)
                 gameContainer.appendChild(teamHeadline)
                 gameContainer.appendChild(score)
+                gameContainer.appendChild(addBoxScore)
                 container.appendChild(gameContainer)
             })
 
