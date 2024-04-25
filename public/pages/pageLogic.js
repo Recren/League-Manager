@@ -230,60 +230,94 @@ window.addEventListener('DOMContentLoaded', async function(){
             console.error('Failed to fetch info on that specific team', error);
         }
     }
-
-       //Displays all the players in the database
+    // Displays all the players in the database
     if (window.location.href == "http://localhost:8080/pages/player-page.html"){
 
-        const playerPageContainer = document.querySelector(".players-page-container")
-        try {
-            // Call the getAllPlayers function to fetch all the player records
-            const players = await fetch("/players").then((res)=> res.json());
-    
-            // Populate page with all the players
-            players.forEach(function(player) {
+    const playerPageContainer = document.querySelector(".players-page-container")
+    try {
+        // Call the getAllPlayers function to fetch all the player records
+        const players = await fetch("/players").then((res)=> res.json());
+        console.log(players)
 
-                //container for the players
-                let playerInfoCard = document.createElement("div");
-                playerInfoCard.className = "player-info-card"
-        
-                //heading for the players name
-                let playerName = document.createElement("h3")
-                playerName.style.cssText="font-size: 30px; margin: 0; margin-top: 20px"
-                playerName.textContent = player.Fname + " " + player.Lname
-                    
-                //Team Name
-                let teamName = document.createElement("p")
-                teamName.style.margin = "10px";
-                teamName.textContent = "Team: " + player.Team_id
-        
-                                    
-                //Jersey number
-                let jersey = document.createElement("p")
-                jersey.style.margin =  "10px";
-                jersey.textContent = "Jersey number: " + player.Jersey_num
+        // Populate page with all the players
+        players.forEach(function(player) {
 
-                //exp.
-                let experience = document.createElement("p")
-                experience.style.margin =  "10px";
-                if(player.year_in_league == 0){
-                    experience.textContent = "Experience: Rookie"
+            // Container for the players
+            let playerInfoCard = document.createElement("div");
+            playerInfoCard.className = "player-info-card"
+
+            // Heading for the player's name
+            let playerName = document.createElement("h3")
+            playerName.style.cssText="font-size: 30px; margin: 0; margin-top: 20px"
+            playerName.textContent = player.Fname + " " + player.Lname
+
+            // Team Name
+            let teamName = document.createElement("p")
+            teamName.style.margin = "10px";
+            teamName.textContent = "Team: " + player.Team_id
+
+            // Jersey number
+            let jersey = document.createElement("p")
+            jersey.style.margin =  "10px";
+            jersey.textContent = "Jersey number: " + player.Jersey_num
+
+            // Experience
+            let experience = document.createElement("p")
+            experience.style.margin =  "10px";
+            if(player.year_in_league == 0){
+                experience.textContent = "Experience: Rookie"
+            }
+            else{
+                experience.textContent = "Experience: " + player.year_in_league
+            }
+
+            // Delete button
+            let deletePlayerButton = document.createElement("button")
+            deletePlayerButton.textContent = "Delete Player"
+            deletePlayerButton.style.fontSize = "16px"
+            deletePlayerButton.style.marginTop = "10px"
+            deletePlayerButton.onclick = function(){
+                // Make sure the user wants to delete the player
+                if (confirm(`Are you sure you want to delete the player: ${player.Fname} ${player.Lname}`)){
+                    // Run the delete request on the player
+                    try{
+                        // For some reason, this returns a 404 Not Found error but the player is successfully deleted
+                        console.log(player.player_id);
+                        fetch(`/players/${player.Player_id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({"id" : player.Player_id})
+                        })
+                        .then(() => {
+                            // Remove player card from DOM
+                            playerPageContainer.removeChild(playerInfoCard);
+                        })
+                        .catch(error => {
+                            console.error("Player could not be deleted", error);
+                        });
+                    }
+                    catch (error){
+                        console.error("Player could not be deleted", error);
+                    }
                 }
-                else{
-                    experience.textContent = "Experience: " + player.year_in_league
-                }
-        
-                playerInfoCard.appendChild(playerName)
-                playerInfoCard.appendChild(teamName)
-                playerInfoCard.appendChild(jersey)
-                playerInfoCard.appendChild(experience)
-                playerPageContainer.appendChild(playerInfoCard)
-    
-            });
-        } catch (error) {
-            console.error('Failed to fetch players:', error);
-        }
-    
+            }
+
+            playerInfoCard.appendChild(playerName)
+            playerInfoCard.appendChild(teamName)
+            playerInfoCard.appendChild(jersey)
+            playerInfoCard.appendChild(experience)
+            playerInfoCard.appendChild(deletePlayerButton)
+            playerPageContainer.appendChild(playerInfoCard)
+
+        });
+    } catch (error) {
+        console.error('Failed to fetch players:', error);
     }
+
+    }
+
 
     //Displays all the current matches
     if (window.location.href == "http://localhost:8080/pages/matches-page.html"){
