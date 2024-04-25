@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame, getAllGames} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame, getAllGames, deleteTeam} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -78,7 +78,20 @@ app.delete("/players/:id", async (req, res) => {
     }
 });
 
-
+app.delete("/teams/:Team_id", async (req, res) =>{
+    const teamToRemove = req.params.Team_id
+    try{
+        const teamDeleted = await deleteTeam(teamToRemove)
+        if (teamDeleted){
+            res.status(200).send({ message: "Team deleted successfully" });
+        } else {
+            res.status(404).send({ message: "Team not found!" });
+        }
+    }
+    catch (error){
+        res.status(500).send({ message: "Failed to delete team", error: error.message })
+    }
+})
 
 //------------------------------------POST REQUESTS-----------------------------------------------------------------------------------
 //Post request to create a team and insert it into the Team Table

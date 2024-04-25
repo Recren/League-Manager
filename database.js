@@ -105,7 +105,11 @@ export async function deletePlayer(playerId) {
     return result.affectedRows > 0; // Return true if a player was deleted, false otherwise
 }
 
-
+export async function deleteTeam(Team_Name){
+    const result = await pool.query(`DELETE FROM Team
+                                     WHERE Team_Name = ?`, [Team_Name])
+    return result.affectedRows > 0; // Return true if a team was deleted, false otherwise
+}
 
 
 //Determine Winner function

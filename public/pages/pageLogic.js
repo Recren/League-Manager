@@ -53,12 +53,49 @@ window.addEventListener('DOMContentLoaded', async function(){
                 localStorage.setItem("team", team.Team_Name)
                 location.href = "team-info.html"
             }
+
+            let deleteTeamButton = document.createElement("button")
+            deleteTeamButton.textContent = "Delete Team"
+            deleteTeamButton.style.fontSize = "16px"
+            deleteTeamButton.style.marginTop = "25px"
+            deleteTeamButton.onclick = function(){
+                //Make sure the user wants to delete the team
+                if (confirm(`Are you sure you want to delete the team: ${team.Team_Name}`)){
+                    //Remove all the DOM elements
+                    teamInfoCard.removeChild(teamName)
+                    teamInfoCard.removeChild(coachName)
+                    teamInfoCard.removeChild(stadiumName)
+                    teamInfoCard.removeChild(city)
+                    teamInfoCard.removeChild(record)
+                    teamInfoCard.removeChild(viewMore)
+                    teamInfoCard.removeChild(deleteTeamButton)
+                    teamPageContainer.removeChild(teamInfoCard)
+                    
+                    //Run the delete request on the team
+                    try{
+                        //For some reason, this returns a 404 Not Found error but the team is sucessfully deleted
+                        fetch(`/teams/${team.Team_Name}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body:JSON.stringify({"Team_Name" : team.Team_Name})
+                        })
+                    }
+                    catch (error){
+                        console.error("Team could not be deleted", err)
+                    }
+                    
+                }
+            }
+
             teamInfoCard.appendChild(teamName)
             teamInfoCard.appendChild(coachName)
             teamInfoCard.appendChild(stadiumName)
             teamInfoCard.appendChild(city)
             teamInfoCard.appendChild(record)
             teamInfoCard.appendChild(viewMore)
+            teamInfoCard.appendChild(deleteTeamButton)
             teamPageContainer.appendChild(teamInfoCard)
 
             });
