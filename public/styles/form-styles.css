@@ -46,7 +46,6 @@ a{
 .form-body{
     height: 800px;
     width: 700px;
-    border: solid;
     display: flex;
     flex-direction: column;
     align-items: center;

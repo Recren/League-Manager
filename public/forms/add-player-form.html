@@ -24,33 +24,39 @@
                 <!--Will have to go back and at the right action to this to make sure it post data to database-->
                 <form class="form-elements-container" action="http://localhost:8080/players" method="POST"
                     id="player-form">
-                    <div class="form-element">
-                        <label for="Fname">First Name:</label>
-                        <input type="text" id="Fname" name="Fname">
-                    </div>
 
-                    <div class="form-element">
-                        <label for="Lname">Last Name:</label>
-                        <input type="text" id="Lname" name="Lname">
-                    </div>
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="Fname">First Name:</label>
+                            <input type="text" id="Fname" name="Fname">
+                        </div>
 
-                    <div class="form-element">
-                        <label for="year_in_league">Years in the league:</label>
-                        <input type="number" id="year_in_league" name="year_in_league">
+                        <div class="form-element">
+                            <label for="Lname">Last Name:</label>
+                            <input type="text" id="Lname" name="Lname">
+                        </div>
                     </div>
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="year_in_league">Years in the league:</label>
+                            <input type="number" id="year_in_league" name="year_in_league">
+                        </div>
 
-                    <div class="form-element">
-                        <label for="Jersey_num">Jersey Number:</label>
-                        <input type="number" id="Jersey_num" name="Jersey_num">
+                        <div class="form-element">
+                            <label for="Jersey_num">Jersey Number:</label>
+                            <input type="number" id="Jersey_num" name="Jersey_num">
+                        </div>
                     </div>
-                    <div class="form-element">
-                        <label for="Team_id">Current Team:</label>
-                        <select style="width: 250px; height: 40px;" class="teamSelection" id="Team_id" name="Team_id">
-                            <option value="Team Name"></option>
+                    <div style="display: flex;">
+                        <div class="form-element">
+                            <label for="Team_id">Current Team:</label>
+                            <select style="width: 250px; height: 40px;" class="teamSelection" id="Team_id"
+                                name="Team_id">
+                                <option value="Team Name"></option>
 
-                        </select>
+                            </select>
+                        </div>
                     </div>
-
                     <button class="submit-button" type="submit" onsubmit="">Add Player</button>
                 </form>
             </div>
