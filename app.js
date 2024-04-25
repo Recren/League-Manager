@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -96,12 +96,19 @@ app.post("/players", async (req, res) => {
     }
 });
 
-//------------------------------------SENDING DATA TO ANOTHER PAGE REQUESTS-----------------------------------------------------------------------------------
-// app.post('/sendTeamData', (req, res) =>{
-//     const teamData = req.body
-//     res.redirect(`/pages/team-info.html?data=${teamData}`)
-// })
+//Post a game to the database
+app.post("/game", async (req,res) =>{
+    const {Date, Host_id, Guest_id, Host_Score, Guest_Score} = req.body
+    try{
+        const [game] = await createNewGame(Date, Host_id, Guest_id, Host_Score, Guest_Score)
+        res.status(201).send({message: "Game created successfully"})
+    }
+    catch (error){
+        res.status(500).send({message: "Failed to create a game",error: error.message})
+    }
+})
 
+//------------------------------------SENDING DATA TO ANOTHER PAGE REQUESTS-----------------------------------------------------------------------------------
 
 app.use((err, req, res, next) =>{
     console.error(err.stack)

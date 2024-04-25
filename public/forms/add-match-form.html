@@ -16,36 +16,42 @@
             <a href="../pages/team-page.html"><button class="navButton">Teams</button></a>
             <a href="../pages/player-page.html"><button class="navButton">Players</button></a>
             <a href="../pages/matches-page.html"><button class="navButton">Matches</button></a>
+            <script src="formLogic.js"></script>
         </div>
         <div class="form-container">
 
             <div class="form-body">
                 <h1 style="font-size: 50px; margin: 0; margin-top: 30px;">Add Game</h1>
                 <!--Will have to go back and at the right action to this to make sure it post data to database-->
-                <form class="form-elements-container" action="team-page.html" method="POST">
+                <form class="form-elements-container" action="http://localhost:8080/game" method="POST">
                     <div class="form-element">
-                        <label for="date">Date:</label>
-                        <input type="date" id="date" name="date">
+                        <label for="Date">Date:</label>
+                        <input type="date" id="Date" name="Date">
                     </div>
 
                     <div class="form-element">
-                        <label for="host_team">Host Team:</label>
-                        <input type="text" id="host_team" name="host_team">
+                        <label for="Host_id">Host Team:</label>
+                        <select style="width: 250px; height: 40px;" class="teamSelection" id="Host_id" name="Host_id">
+                            <option value="Host Team Name"></option>
+
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label for="Guest_id">Guest Team:</label>
+                        <select style="width: 250px; height: 40px;" class="teamSelection" id="Guest_id" name="Guest_id">
+                            <option value="Guest Team Name"></option>
+
+                        </select>
                     </div>
 
                     <div class="form-element">
-                        <label for="guest_team">Guest Team:</label>
-                        <input type="text" id="guest_team" name="guest_team">
+                        <label for="Host_Score">Host Score:</label>
+                        <input type="number" id="Host_Score" name="Host_Score">
                     </div>
 
                     <div class="form-element">
-                        <label for="host_score">Host Score:</label>
-                        <input type="number" id="host_score" name="host_score">
-                    </div>
-
-                    <div class="form-element">
-                        <label for="guest_score">Guest Score:</label>
-                        <input type="number" id="guest_score" name="guest_score">
+                        <label for="Guest_Score">Guest Score:</label>
+                        <input type="number" id="Guest_Score" name="Guest_Score">
                     </div>
 
 

@@ -1,15 +1,43 @@
 body {
   display: flex;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
-
+a{
+  text-decoration: none;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 70vw;
 }
+.navbar{
+  display: flex;
+  justify-content: center;
+  gap:30px;
+  align-items: center;
+  width: 100vw;
+  height: 70px;
+  background-color: #1D428A;
 
+}
+.navButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  color: white;
+  background-color: #1D428A;
+  border: none;
+  transition: .2s;
+}
+.navButton:hover{
+  transform: scale(1.2);
+}
 .team-info-header {
   display: flex;
   justify-content: center;
