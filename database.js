@@ -48,9 +48,9 @@ export async function getSinglePlayerById(playerId) {
     return result;
 }
 
-// Export async function to get player by Fname and Lname
+// Export async function to get player_id given by Fname and Lname
 export async function getSinglePlayerByName(fname, lname) {
-    const [result] = await pool.query(`SELECT * FROM Player
+    const [result] = await pool.query(`SELECT Player_id FROM Player
                                        WHERE Fname = ? AND Lname = ?`, [fname, lname]); //Using prepared values
     return result;
 }
@@ -96,6 +96,14 @@ export async function createNewGame(Date, Host_id, Guest_Id, Host_Score, Guest_S
 
 }
 
+//Create a new box score for a player
+export async function createNewBoxScore(Player_id, Date, Assists, Rebounds, Steals, Free_Throws_Made, Free_Throws_Attempted, Field_Goals_Made, Field_Goals_Attempted, Three_pointers_made, Three_pointers_attempted) {
+    const run = `INSERT INTO Box_Score (Player_id, Date, Assists, Rebounds, Steals, Free_Throws_Made, Free_Throws_Attempted, Field_Goals_Made, Field_Goals_Attempted, Three_pointers_made, Three_pointers_attempted)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const result = await pool.query(run, [Player_id, Date, Assists, Rebounds, Steals, Free_Throws_Made, Free_Throws_Attempted, Field_Goals_Made, Field_Goals_Attempted, Three_pointers_made, Three_pointers_attempted]);
+    return result;
+
+}
 //--------------------------------------------------DELETE FUNCTIONS-----------------------------------------
 
 // Export async function to delete a single player

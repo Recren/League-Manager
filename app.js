@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser"
 
 //Get our query functions from our database
-import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame, getAllGames, deleteTeam} from './database.js'
+import {createNewTeam, getAllTeamsQuery, getSingleTeam, getSinglePlayerById, getSinglePlayerByName, createPlayer, deletePlayer, getTeamNames, getAllPlayers, getAllPlayersInTeam, createNewGame, getAllGames, deleteTeam, createNewBoxScore} from './database.js'
 
 const app = express()
 app.use(express.json())
@@ -98,7 +98,7 @@ app.delete("/teams/:Team_id", async (req, res) =>{
 app.post("/teams", async (req,res) =>{
     const {Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference} = req.body
     const team = await createNewTeam(Team_Name, Wins, Losses, Ties, Coach, Stadium, City, Conference)
-
+    
     res.status(201).send("Team Added")
 })
 
@@ -123,6 +123,23 @@ app.post("/game", async (req,res) =>{
     catch (error){
         res.status(500).send({message: "Failed to create a game",error: error.message})
     }
+})
+
+//This is throwing the error
+app.post("/box-score", async(req,res) =>{
+    const {Player_id, Date, Assists, Rebounds, Steals, Free_Throws_Made, Free_Throws_Attempted, Field_Goals_Made, Field_Goals_Attempted, Three_pointers_made, Three_pointers_attempted} = req.body
+    
+    try{
+        
+        const score = await createNewBoxScore(Player_id, Date, Assists, Rebounds, Steals, Free_Throws_Made, Free_Throws_Attempted, Field_Goals_Made, Field_Goals_Attempted, Three_pointers_made, Three_pointers_attempted)
+        res.status(201).send({message: "Box score created successfully"})
+        
+    }
+    catch (error){
+        
+        res.status(500).send({message: "Failed to create a box score"})
+    }
+   
 })
 
 //------------------------------------SENDING DATA TO ANOTHER PAGE REQUESTS-----------------------------------------------------------------------------------

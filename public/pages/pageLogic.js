@@ -353,6 +353,7 @@ window.addEventListener('DOMContentLoaded', async function(){
                 addBoxScore.onclick = function(){
                     localStorage.setItem("Host_team", game.Host_id)
                     localStorage.setItem("Guest_team", game.Guest_Id)
+                    localStorage.setItem("Date_played", game.Date)
                     location.href = "../forms/add-box-score.html"
                 }
                 
